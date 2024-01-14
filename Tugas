@@ -1,0 +1,121 @@
+<?php
+
+class BangunDatar {
+    public function area() {
+        // Implementasi luas bangun datar
+    }
+
+    public function circumference() {
+        // Implementasi keliling bangun datar
+    }
+
+    public function enlarge($scale) {
+        // Implementasi fungsi enlarge
+    }
+
+    public function shrink($scale) {
+        // Implementasi fungsi shrink
+    }
+}
+
+class Lingkaran extends BangunDatar {
+    private $jariJari;
+
+    public function __construct($jariJari) {
+        $this->jariJari = $jariJari;
+    }
+
+    public function area() {
+        return pi() * pow($this->jariJari, 2);
+    }
+
+    public function circumference() {
+        return 2 * pi() * $this->jariJari;
+    }
+
+    public function enlarge($scale) {
+        $this->jariJari *= $scale;
+    }
+
+    public function shrink($scale) {
+        $this->jariJari /= $scale;
+    }
+}
+
+class Persegi extends BangunDatar {
+    private $sisi;
+
+    public function __construct($sisi) {
+        $this->sisi = $sisi;
+    }
+
+    public function area() {
+        return pow($this->sisi, 2);
+    }
+
+    public function circumference() {
+        return 4 * $this->sisi;
+    }
+
+    public function enlarge($scale) {
+        $this->sisi *= $scale;
+    }
+
+    public function shrink($scale) {
+        $this->sisi /= $scale;
+    }
+}
+
+class PersegiPanjang extends BangunDatar {
+    private $panjang;
+    private $lebar;
+
+    public function __construct($panjang, $lebar) {
+        $this->panjang = $panjang;
+        $this->lebar = $lebar;
+    }
+
+    public function area() {
+        return $this->panjang * $this->lebar;
+    }
+
+    public function circumference() {
+        return 2 * ($this->panjang + $this->lebar);
+    }
+
+    public function enlarge($scale) {
+        $this->panjang *= $scale;
+        $this->lebar *= $scale;
+    }
+
+    public function shrink($scale) {
+        $this->panjang /= $scale;
+        $this->lebar /= $scale;
+    }
+}
+
+class Descriptor {
+    public static function describe(BangunDatar $bangunDatar) {
+        $jenisBangun = get_class($bangunDatar);
+        $luas = $bangunDatar->area();
+        $keliling = $bangunDatar->circumference();
+
+        echo "Bangun datar ini adalah $jenisBangun dengan ";
+        echo "luas $luas dan keliling $keliling.";
+    }
+}
+
+// Contoh penggunaan
+$lingkaran = new Lingkaran(5);
+$lingkaran->enlarge(2);
+Descriptor::describe($lingkaran);
+
+$persegi = new Persegi(10);
+$persegi->shrink(2);
+Descriptor::describe($persegi);
+
+$persegiPanjang = new PersegiPanjang(8, 12);
+$persegiPanjang->enlarge(3);
+Descriptor::describe($persegiPanjang);
+
+?>
